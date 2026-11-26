@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apresentação do relatório</title>
+<style>
+  :root { --fundo:#f4f5f7; --card:#ffffff; --texto:#1f2430; --sub:#5b6170; --borda:#d9dce3; --azul:#1f3864; --amarelo:#fff3a6; --amarelo-borda:#e0c200; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--fundo); color:var(--texto); font:16px/1.55 "Segoe UI", Calibri, Arial, sans-serif; }
+  main { max-width: 980px; margin: 0 auto; padding: 24px 16px 80px; }
+  nav { position: sticky; top: 0; z-index: 5; background: var(--azul); color: #fff; padding: 8px 16px; font-size: 13px; overflow-x: auto; white-space: nowrap; }
+  nav a { color:#fff; text-decoration:none; margin-right:14px; opacity:.9; }
+  section { background:var(--card); border:1px solid var(--borda); border-radius:10px; padding:22px 26px; margin:22px 0; }
+  .num { color:var(--sub); font-size:13px; letter-spacing:.04em; text-transform:uppercase; }
+  h1 { margin:4px 0 6px; font-size:32px; color:var(--azul); }
+  h2 { margin:2px 0 12px; font-size:24px; color:var(--azul); }
+  h3 { margin:18px 0 8px; font-size:18px; }
+  p { margin: 8px 0; }
+  .fala { color:var(--sub); font-style:italic; border-left:3px solid var(--borda); padding-left:12px; }
+  .amarelo { background:var(--amarelo); border:1px solid var(--amarelo-borda); border-radius:8px; padding:14px 18px; margin:14px 0; }
+  .amarelo h3 { margin-top:0; }
+  mark { background:var(--amarelo); padding:0 2px; }
+  table { border-collapse: collapse; width:100%; margin:10px 0; font-size:14px; }
+  th, td { border:1px solid var(--borda); padding:5px 8px; text-align:left; vertical-align:top; }
+  th { background:#e8ecf5; }
+  .amarelo th { background:#f7e57a; }
+  .amarelo td { background:#fffbe0; }
+  td.n, th.n { text-align:right; }
+  code, pre { font-family: Consolas, "Courier New", monospace; font-size:13.5px; }
+  pre { background:#f2f2f2; border:1px solid var(--borda); border-radius:6px; padding:10px 12px; overflow-x:auto; white-space:pre; }
+  .amarelo pre { background:#fffdf0; }
+  .tabela { overflow-x:auto; }
+  ul { margin:6px 0; padding-left:22px; }
+  .tag { display:inline-block; font-size:12px; background:#e8ecf5; border-radius:4px; padding:1px 6px; margin-left:6px; color:var(--azul); }
+  @media (max-width: 600px) { section { padding:16px; } h1 { font-size:26px; } }
+</style>
+</head>
+<body>
+<nav>
+  <a href="#capa">Início</a><a href="#s1">1 Software</a><a href="#s2">2 Métricas</a><a href="#s3">3 CC</a><a href="#s4">4 O que testar</a><a href="#s5">5 Grafos</a><a href="#s6">6 Valor limite</a><a href="#s7">7 JUnit</a><a href="#s8">8 Cobertura</a><a href="#s9">9 Mock</a><a href="#s10">10 Integração</a><a href="#s11">11 Selenium</a><a href="#s12">12 Telas</a>
+</nav>
+<main>
+
+<section id="capa">
+  <div class="num">Apresentação</div>
+  <h1>Trabalho de Teste de Software</h1>
+  <p><b>Online Food Delivery System (OFDS)</b>, Marcos Silva Rivelli</p>
+  <p class="fala">"Vou mostrar como testei um sistema real de pedidos de comida: primeiro medi onde o código é mais complexo, depois escolhi o que testar, planejei os casos, escrevi os testes, medi a cobertura e por fim testei a integração e a tela."</p>
+  <p>O roteiro segue as seções do relatório. Os quadros <mark>em amarelo</mark> são os pontos que você pediu em detalhe: a pergunta sobre a normalização, cada valor limite, os resultados da cobertura, cada tabela e os trechos de código.</p>
+</section>
+
+<section id="s1">
+  <div class="num">Seção 1</div>
+  <h2>Software utilizado</h2>
+  <p><b>O que é:</b> um "iFood" simples, em Java 17 com Spring Boot, com quatro perfis (cliente, dono de restaurante, entregador e administrador).</p>
+  <p><b>Por que está no relatório:</b> o enunciado pede que o relatório comece apresentando o sistema. Também justifica a escolha: tem mais de 10 classes de domínio, regras de negócio de verdade (pedido e pagamento) e telas web, que permitem o Selenium.</p>
+  <p><b>Adaptei para o trabalho:</b> troquei o banco PostgreSQL pelo H2 em memória, para rodar em qualquer PC do IFET sem instalar banco. O banco nasce de novo a cada execução, sempre com os mesmos dados, e por isso os testes do Selenium podem ser repetidos. Removi bibliotecas e código que nada usava.</p>
+  <p class="fala">"Eu não mudei a lógica dos métodos que testei; mudei só o que era preciso para o sistema rodar no laboratório."</p>
+</section>
+
+<section id="s2">
+  <div class="num">Seção 2 (item 1)</div>
+  <h2>Diagrama de classes e métricas</h2>
+  <p><b>Por que está aqui:</b> o item 1 pede o diagrama e as métricas de Chidamber &amp; Kemerer e Lorenz &amp; Kidd. Elas mostram quais classes são mais complexas e, portanto, mais arriscadas.</p>
+  <p>O diagrama mostra as 10 classes do pacote <code>model</code>: <code>User</code> é a mãe dos 4 perfis, <code>Order</code> fica no centro ligando cliente, restaurante, entregador, itens e pagamento.</p>
+
+  <div class="amarelo">
+    <h3>Tabela de métricas: o que cada coluna quer dizer</h3>
+    <table>
+      <tr><th>Coluna</th><th>Significado</th><th>Exemplo no relatório</th></tr>
+      <tr><td>WMC</td><td>Soma da complexidade dos métodos da classe. Como todos os métodos do domínio têm CC 1, é o número de métodos.</td><td>Order = 22 (4 de negócio e 18 getters/setters)</td></tr>
+      <tr><td>DIT</td><td>Profundidade na herança: quantas classes-mãe acima.</td><td>User = 0; Customer = 1</td></tr>
+      <tr><td>NOC</td><td>Quantos filhos diretos.</td><td>User = 4 (os 4 perfis)</td></tr>
+      <tr><td>CBO</td><td>Com quantas outras classes ela se liga.</td><td>Order = 6</td></tr>
+      <tr><td>CS</td><td>Tamanho: atributos + operações, contando o que herdou.</td><td>Order = 31; Customer = 24 (18 vêm de User)</td></tr>
+      <tr><td>NOO</td><td>Métodos herdados que a subclasse reescreve.</td><td>0 em todas</td></tr>
+      <tr><td>NOA</td><td>Métodos novos que a subclasse acrescenta.</td><td>DeliveryPartner = 5</td></tr>
+      <tr><td>Soma</td><td>Soma das 7 colunas da linha, como na planilha do professor.</td><td>Order = 59, a maior</td></tr>
+    </table>
+    <p><b>Linhas de baixo:</b> média, desvio padrão (amostral, o DESVPAD do Excel), mínimo e máximo de cada coluna. Elas não são classes; são a base para padronizar e normalizar.</p>
+  </div>
+
+  <div class="amarelo">
+    <h3>Pergunta: "A tabela está normalizada?"</h3>
+    <p><b>Não.</b> No relatório final existem duas tabelas de números e nenhuma delas é a normalizada:</p>
+    <ul>
+      <li><b>Tabela de métricas:</b> são os valores <b>brutos</b>, contados no código.</li>
+      <li><b>Padronização:</b> é outra técnica. Cada valor vira (valor − média) / desvio padrão. O resultado mostra quantos desvios a classe está acima ou abaixo da média: positivo é acima, negativo é abaixo. Exemplo: WMC de Order = (22 − 10,10) / 6,31 = <b>1,88</b>.</li>
+    </ul>
+    <p><b>Normalização</b> seria (valor − mínimo) / (máximo − mínimo), que coloca tudo entre 0 e 1. Exemplo: WMC de Order = (22 − 2) / (22 − 2) = <b>1,00</b>; WMC de User = (12 − 2) / 20 = <b>0,50</b>.</p>
+    <p><b>Atenção:</b> a tabela "Classes mais complexas" ainda tem a coluna <b>Normalização</b> (DeliveryPartner 3,15; Order 3,00; Customer 2,60), mas a tabela que gera esses números saiu do relatório. Se o professor perguntar, a conta é esta:</p>
+    <div class="tabela"><table>
+      <tr><th>Classe</th><th class="n">WMC</th><th class="n">DIT</th><th class="n">NOC</th><th class="n">CBO</th><th class="n">CS</th><th class="n">NOO</th><th class="n">NOA</th><th class="n">Soma</th></tr>
+      <tr><td>User</td><td class="n">0,50</td><td class="n">0,00</td><td class="n">1,00</td><td class="n">0,00</td><td class="n">0,13</td><td class="n">-</td><td class="n">0,00</td><td class="n">1,63</td></tr>
+      <tr><td>Customer</td><td class="n">0,10</td><td class="n">1,00</td><td class="n">0,00</td><td class="n">0,17</td><td class="n">0,53</td><td class="n">-</td><td class="n">0,80</td><td class="n"><b>2,60</b></td></tr>
+      <tr><td>RestaurantOwner</td><td class="n">0,00</td><td class="n">1,00</td><td class="n">0,00</td><td class="n">0,17</td><td class="n">0,33</td><td class="n">-</td><td class="n">0,40</td><td class="n">1,90</td></tr>
+      <tr><td>DeliveryPartner</td><td class="n">0,15</td><td class="n">1,00</td><td class="n">0,00</td><td class="n">0,33</td><td class="n">0,67</td><td class="n">-</td><td class="n">1,00</td><td class="n"><b>3,15</b></td></tr>
+      <tr><td>Admin</td><td class="n">0,10</td><td class="n">1,00</td><td class="n">0,00</td><td class="n">0,00</td><td class="n">0,53</td><td class="n">-</td><td class="n">0,80</td><td class="n">2,43</td></tr>
+      <tr><td>Restaurant</td><td class="n">0,70</td><td class="n">0,00</td><td class="n">0,00</td><td class="n">0,50</td><td class="n">0,47</td><td class="n">-</td><td class="n">0,00</td><td class="n">1,67</td></tr>
+      <tr><td>MenuItem</td><td class="n">0,50</td><td class="n">0,00</td><td class="n">0,00</td><td class="n">0,33</td><td class="n">0,07</td><td class="n">-</td><td class="n">0,00</td><td class="n">0,90</td></tr>
+      <tr><td>Order</td><td class="n">1,00</td><td class="n">0,00</td><td class="n">0,00</td><td class="n">1,00</td><td class="n">1,00</td><td class="n">-</td><td class="n">0,00</td><td class="n"><b>3,00</b></td></tr>
+      <tr><td>OrderItem</td><td class="n">0,45</td><td class="n">0,00</td><td class="n">0,00</td><td class="n">0,33</td><td class="n">0,00</td><td class="n">-</td><td class="n">0,00</td><td class="n">0,78</td></tr>
+      <tr><td>Payment</td><td class="n">0,55</td><td class="n">0,00</td><td class="n">0,00</td><td class="n">0,50</td><td class="n">0,13</td><td class="n">-</td><td class="n">0,00</td><td class="n">1,18</td></tr>
+    </table></div>
+    <p><b>Por que o NOO tem "-":</b> ele é 0 em todas as classes. O desvio padrão fica 0 e o máximo fica igual ao mínimo, então as duas fórmulas dariam divisão por zero. Como não diferencia nenhuma classe, ficou fora.</p>
+  </div>
+
+  <div class="amarelo">
+    <h3>Tabela "Classes mais complexas"</h3>
+    <p>Mostra as 3 primeiras de cada jeito de somar. A soma bruta favorece colunas de números grandes (CS e WMC), por isso Restaurant aparece em 2º só ali. Quando tudo fica na mesma escala (padronização e normalização), as que se repetem são <b>Order</b> e <b>DeliveryPartner</b> (top 3 nos três) e <b>Customer</b> (top 3 em dois). Essas são as classes mais complexas.</p>
+  </div>
+</section>
+
+<section id="s3">
+  <div class="num">Seção 3 (item 2)</div>
+  <h2>Complexidade ciclomática</h2>
+  <p><b>Por que está aqui:</b> o item 2 pede a CC de McCabe e pelo menos 2 métodos acima de 10. A CC conta os caminhos de um método: CC = número de decisões + 1, e cada <code>&amp;&amp;</code> e <code>||</code> também conta como decisão.</p>
+  <div class="amarelo">
+    <h3>Tabela de CC</h3>
+    <p>Lista os 17 métodos com CC 3 ou mais, do maior para o menor. Só <b>process</b> e <b>placeOrder</b> passam de 10 (os dois com 11). Os outros 217 métodos têm CC 1 ou 2 (204 com 1 e 13 com 2), por isso a frase "demais métodos têm CC ≤ 2" está correta.</p>
+  </div>
+
+  <div class="amarelo">
+    <h3>Os trechos de código que você perguntou</h3>
+    <pre>Restaurant restaurant = restaurantService.getById(restaurantId);</pre>
+    <p>Busca no banco o restaurante do pedido pelo id que veio da tela. Por dentro, o <code>getById</code> faz <code>findById(id).orElseThrow(...)</code>: se o id não existir, lança "Restaurant not found". O restaurante encontrado vai para o <code>OrderBuilder</code> (<code>fromRestaurant(restaurant)</code>) e fica gravado no pedido.</p>
+
+    <pre>MenuItem item = menuItemRepository.findById(itemIds.get(i))
+        .orElseThrow(() -&gt; new RuntimeException("Menu item not found"));</pre>
+    <p>Dentro do <code>for</code>, pega o id do item na posição <code>i</code> do carrinho e busca no banco. O <code>findById</code> devolve um <code>Optional</code>, uma "caixa" que pode estar vazia. Se estiver vazia (o item não existe), o <code>orElseThrow</code> lança a exceção "Menu item not found". É o caso testado por <code>itemInexistente</code>, com o id 99.</p>
+
+    <pre>!item.getRestaurant().getRestaurantId().equals(restaurantId)</pre>
+    <p>Confere se o item pertence ao restaurante do pedido. <code>item.getRestaurant().getRestaurantId()</code> é o id do restaurante dono do item; <code>restaurantId</code> é o restaurante do pedido. O <code>equals</code> compara os dois (usa <code>equals</code> e não <code>==</code> porque <code>Long</code> é objeto). O <code>!</code> inverte: a condição fica <b>verdadeira quando os ids são diferentes</b>, e aí o método lança "Invalid or unavailable menu item in cart." Impede um pedido que misture pratos de dois restaurantes. É o caso testado por <code>itemDeOutroRestaurante</code>.</p>
+
+    <pre>Customer customer =
+        userService.findCustomerByEmail(ud.getUsername()).orElseThrow();</pre>
+    <p><code>ud</code> é o usuário logado, entregue pelo Spring Security. No login deste sistema, o "username" é o e-mail. Então a linha busca o <b>cliente logado</b> pelo e-mail. Também volta um <code>Optional</code>: se quem está logado não for cliente (por exemplo, um entregador), o <code>orElseThrow()</code> sem argumento lança erro e o pagamento não continua.</p>
+
+    <pre>Order order = orderService.getCustomerOrder(orderId, customer);</pre>
+    <p>Busca o pedido pelo id e <b>confere se ele é desse cliente</b>. Se o pedido for de outra pessoa, lança "Order does not belong to customer." Impede alguém de pagar o pedido de outro cliente.</p>
+  </div>
+</section>
+
+<section id="s4">
+  <div class="num">Seção 4 (item 3)</div>
+  <h2>O que deve ser mais testado</h2>
+  <p><b>Por que está aqui:</b> o item 3 pede para escolher, com base nas métricas, o que testar. É a ponte entre a análise (seções 2 e 3) e os testes (seções 5 em diante).</p>
+  <ul>
+    <li><b>Classes:</b> Order, DeliveryPartner e Customer, que vieram do item 1.</li>
+    <li><b>Métodos:</b> placeOrder e process, os únicos com CC acima de 10. Os dois trabalham com a classe Order.</li>
+    <li><b>Teste funcional:</b> login e cadastro, que são complexos (CC 5 e 7) e não têm teste unitário.</li>
+  </ul>
+  <p class="fala">"As classes mais complexas só têm getters e setters, então o risco delas não está em decisões. Por isso testei os dois métodos que mais tomam decisões, e eles usam essas classes."</p>
+</section>
+
+<section id="s5">
+  <div class="num">Seção 5 (item 4)</div>
+  <h2>Grafos</h2>
+  <p><b>Por que está aqui:</b> o item 4 pede os grafos da CC desenhados para os métodos escolhidos. O grafo mostra cada decisão como um nó com saída V (verdadeiro) e F (falso); cada caminho do grafo vira um caso de teste.</p>
+  <ul>
+    <li><b>placeOrder:</b> 17 nós e 26 arestas. CC = 26 − 17 + 2 = 11, o mesmo valor do item 2.</li>
+    <li><b>process:</b> 24 nós e 33 arestas. CC = 33 − 24 + 2 = 11.</li>
+  </ul>
+  <p class="fala">"No process a CC é 11, mas só 10 caminhos acontecem de verdade: o ternário do final testa a mesma variável do if (success), então uma combinação nunca ocorre."</p>
+</section>
+
+<section id="s6">
+  <div class="num">Seção 6 (item 5)</div>
+  <h2>Valor limite</h2>
+  <p><b>Por que está aqui:</b> o item 5 pede a tabela de valor limite. A ideia é que os erros aparecem nas fronteiras, então para cada regra testei o valor no limite e logo ao lado dele.</p>
+
+  <div class="amarelo">
+    <h3>Tabela do placeOrder: por que cada valor</h3>
+    <table>
+      <tr><th>Variável</th><th>Valores</th><th>Por que esses</th></tr>
+      <tr><td>itemIds (tamanho)</td><td>null; 0 itens; 1 item; 2 itens</td><td>A regra é "lista existente e não vazia". <b>null</b> testa a lista que nem veio; <b>0</b> é logo abaixo do mínimo (inválido); <b>1</b> é o menor válido; <b>2</b> faz o laço rodar duas vezes e somar dois subtotais.</td></tr>
+      <tr><td>quantities (tamanho comparado a itemIds)</td><td>null; n − 1; n; n + 1</td><td>A regra é "mesmo tamanho das duas listas". A fronteira é a igualdade: <b>n</b> é o válido, e <b>n − 1</b> e <b>n + 1</b> são um a menos e um a mais, os dois lados do erro. <b>null</b> testa a lista ausente.</td></tr>
+      <tr><td>Quantidade de cada item</td><td>null; 0; 1; 2</td><td>A regra é "quantidade maior que 0". <b>0</b> é logo abaixo do limite (inválido); <b>1</b> é o menor válido; <b>2</b> confirma que acima também funciona; <b>null</b> é a quantidade que não veio.</td></tr>
+      <tr><td>Disponibilidade do item</td><td>true; false</td><td>É um booleano, só existem esses dois valores.</td></tr>
+      <tr><td>Restaurante do item</td><td>mesmo id; sem restaurante; outro id</td><td>O item precisa ser do restaurante do pedido. <b>Mesmo id</b> é o válido; <b>sem restaurante</b> testa o null (que daria erro ao pegar o id); <b>outro id</b> é o pedido misturando restaurantes.</td></tr>
+      <tr><td>Existência do item</td><td>id 1; id 99</td><td><b>1</b> existe no cadastro; <b>99</b> não existe e faz o <code>orElseThrow</code> lançar "Menu item not found".</td></tr>
+    </table>
+  </div>
+
+  <div class="amarelo">
+    <h3>Tabela do process: por que cada valor</h3>
+    <table>
+      <tr><th>Variável</th><th>Valores</th><th>Por que esses</th></tr>
+      <tr><td>Entrada cardOrUpiInput</td><td>0000000000000000; 000000000000000; fail@upi; 4111111111111111; joao@upi</td><td><b>16 zeros</b> é exatamente o valor que força a falha. <b>15 zeros</b> é o vizinho: parece, mas não é igual, então não deve falhar à força (vai para o sorteio pelo tamanho). <b>fail@upi</b> é o segundo valor de falha forçada. <b>4111...</b> testa "começa com 4" e <b>joao@upi</b> testa "contém @", as duas formas de entrar no sorteio.</td></tr>
+      <tr><td>Comprimento (sem "4" e sem "@")</td><td>5 (12345); 6 (123456)</td><td>A regra é "6 caracteres ou mais". <b>6</b> é o limite (vai para o sorteio) e <b>5</b> é logo abaixo (recusa direto, sem sorteio).</td></tr>
+      <tr><td>Valor sorteado nextInt(10), aprova se &gt; 0</td><td>0; 1</td><td>O sorteio vai de 0 a 9 e aprova acima de 0. <b>0</b> é o único que recusa e <b>1</b> é o menor que aprova. Só dá para fixar esses valores com o mock do Random.</td></tr>
+      <tr><td>Pagamento do pedido</td><td>null; existente</td><td>Testa o pedido que não tem pagamento (deve recusar) e o normal.</td></tr>
+      <tr><td>Status do pagamento</td><td>PENDING; COMPLETED</td><td>Só <b>PENDING</b> pode ser pago. <b>COMPLETED</b> testa pagar duas vezes.</td></tr>
+      <tr><td>Valor do pagamento × total do pedido</td><td>100,00 × 100,00; 99,99; 100,01</td><td>A regra é "valor igual ao total". O igual é o válido; <b>99,99</b> e <b>100,01</b> são um centavo de cada lado, a menor diferença possível em dinheiro.</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="s7">
+  <div class="num">Seção 7 (item 6)</div>
+  <h2>Casos de teste com JUnit</h2>
+  <p><b>Por que está aqui:</b> o item 6 pede os testes JUnit com o código e o print deles passando. Os testes implementam os valores da seção 6.</p>
+  <div class="amarelo">
+    <h3>Tabela de arquivos de teste</h3>
+    <p>Cada classe testada tem o seu arquivo de teste no mesmo pacote, como o IntelliJ cria com Generate &gt; Test. São 30 testes: 13 do OrderService (placeOrder), 12 do MockPaymentController (process), 2 do Order (1 de integração e 1 que já vinha no projeto) e 1 de cada uma de MenuItem, RestaurantOwner e Restaurant (integração).</p>
+  </div>
+
+  <div class="amarelo">
+    <h3>O setUp que você colou: o que cada linha faz</h3>
+    <p>O teste não usa banco. Os repositórios e serviços são <b>mocks</b> (objetos falsos), e estas linhas dizem o que eles respondem:</p>
+    <pre>when(restaurantService.getById(1L)).thenReturn(restaurante);</pre>
+    <p>Quando o placeOrder pedir o restaurante 1, o mock devolve o restaurante criado no próprio teste.</p>
+    <pre>when(menuItemRepository.findById(1L)).thenReturn(Optional.of(itemA));
+when(menuItemRepository.findById(2L)).thenReturn(Optional.of(itemB));</pre>
+    <p>Monta um cardápio falso: o id 1 é o item A (R$ 10,00) e o id 2 é o item B (R$ 25,50). Por isso o teste de dois itens espera 2 × 10,00 + 1 × 25,50 = R$ 45,50.</p>
+    <pre>when(menuItemRepository.findById(99L)).thenReturn(Optional.empty());</pre>
+    <p>O id 99 devolve a "caixa vazia", simulando um item que não existe. É o que faz o teste <code>itemInexistente</code> receber "Menu item not found".</p>
+    <pre>when(orderRepository.save(any(Order.class)))
+    .thenAnswer(invocation -&gt; invocation.getArgument(0));</pre>
+    <p>Quando o serviço mandar gravar <b>qualquer</b> pedido, o mock devolve o próprio pedido que recebeu (o argumento 0), como se o banco tivesse gravado. Sem essa linha, o <code>save</code> devolveria <code>null</code> e o placeOrder retornaria um pedido nulo.</p>
+  </div>
+  <p>O print mostra "30 tests passed" no IntelliJ.</p>
+</section>
+
+<section id="s8">
+  <div class="num">Seção 8 (item 7)</div>
+  <h2>Cobertura</h2>
+  <p><b>Por que está aqui:</b> o item 7 pede uma ferramenta de cobertura mostrando 100% nos métodos testados. Usei a cobertura do próprio IntelliJ.</p>
+
+  <div class="amarelo">
+    <h3>Os resultados, número por número</h3>
+    <p><b>No editor (prints de placeOrder e process):</b> todas as linhas dos dois métodos estão <b>verdes</b>, sem nenhuma amarela ou vermelha. Verde quer dizer executada, e sem amarela quer dizer que os dois lados de cada decisão foram testados. Isso é o 100%: 21 de 21 linhas e 20 de 20 desvios no placeOrder; 19 de 19 linhas e 22 de 22 desvios no process.</p>
+    <table>
+      <tr><th>Linha da janela Coverage</th><th>Classes</th><th>Métodos</th><th>Linhas</th><th>Desvios</th><th>Como ler</th></tr>
+      <tr><td>com.ofds (projeto inteiro)</td><td>43% (14/32)</td><td>23% (59/250)</td><td>21% (137/637)</td><td>28% (44/153)</td><td>É baixo e está certo: o trabalho testa 2 métodos a fundo, não o sistema inteiro.</td></tr>
+      <tr><td>service</td><td>25% (1/4)</td><td>1% (1/53)</td><td>12% (21/167)</td><td>25% (20/78)</td><td>Só o OrderService foi testado, e nele só o placeOrder: as 21 linhas e os 20 desvios são exatamente os dele.</td></tr>
+      <tr><td>OrderService</td><td>100% (1/1)</td><td>5% (1/18)</td><td>22% (21/93)</td><td>37% (20/54)</td><td>1 método de 18 (placeOrder) coberto por inteiro; os outros 17 ficaram fora do escopo.</td></tr>
+      <tr><td>controller</td><td>16% (1/6)</td><td>2% (1/44)</td><td>10% (19/184)</td><td>41% (22/53)</td><td>Só o MockPaymentController foi testado; os 22 desvios são os do process.</td></tr>
+      <tr><td>MockPaymentController</td><td>100% (1/1)</td><td>50% (1/2)</td><td>73% (19/26)</td><td>100% (22/22)</td><td>A classe tem 2 métodos: process (testado) e checkout (não). As 7 linhas que faltam são do checkout. Todos os desvios da classe estão no process, por isso deu 100%.</td></tr>
+      <tr><td>model</td><td>78% (11/14)</td><td>41% (53/129)</td><td>49% (84/171)</td><td>0% (0/2)</td><td>As classes de domínio foram usadas de verdade pelos testes (Order, Payment, MenuItem...), por isso aparecem cobertas mesmo sem teste próprio.</td></tr>
+      <tr><td>config</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td><td>SecurityConfig e DataSeeder (login e dados de exemplo) não têm teste unitário; o login foi testado pelo Selenium.</td></tr>
+      <tr><td>repository</td><td>100% (0/0)</td><td>100% (0/0)</td><td>100% (0/0)</td><td>100% (0/0)</td><td>São interfaces sem código próprio: não há nada para cobrir.</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="s9">
+  <div class="num">Seção 9 (item 9)</div>
+  <h2>Classe modificada para usar mock</h2>
+  <p><b>Por que está aqui:</b> o item 9 pede uma classe modificada para receber um objeto mock, com pelo menos 2 casos de teste.</p>
+  <p>Hoje a seção traz o parágrafo sobre os repositórios: como eles já chegam por <code>@Autowired</code>, o Mockito os substitui sem mudar o código. Combinamos de ajustar esta seção depois.</p>
+</section>
+
+<section id="s10">
+  <div class="num">Seção 10 (item 10)</div>
+  <h2>Ordem de integração e stubs</h2>
+  <p><b>Por que está aqui:</b> o item 10 pede a ordem em que as classes devem ser juntadas e os stubs necessários. Usei o método FI/FIT da planilha do professor.</p>
+  <div class="amarelo">
+    <h3>Tabela Dependências</h3>
+    <p>Para cada classe: de quem ela depende (as classes que ela usa nos atributos ou de quem herda) e quem depende dela. O <b>FI</b> é a contagem da última coluna. Exemplo: User tem FI 4 porque os 4 perfis herdam dela; Order tem FI 5 porque cliente, entregador, restaurante, item e pagamento apontam para ela.</p>
+  </div>
+  <div class="amarelo">
+    <h3>Tabela Cálculo do FIT</h3>
+    <p>Cada coluna FIT1, FIT2... é uma rodada. O FIT de uma classe é a soma dos FI das classes de que ela depende e que <b>ainda não entraram</b>. Em cada rodada entra a de menor FIT (no empate, a de maior FI), e ela vira "-" nas colunas seguintes.</p>
+    <p>Exemplo: na rodada 1, User tem FIT 0 (não depende de ninguém) e entra primeiro. Na rodada 3, MenuItem e RestaurantOwner empatam com 3, e MenuItem entra antes por ter FI maior (2 contra 1).</p>
+  </div>
+  <div class="amarelo">
+    <h3>Tabela Ordem de integração</h3>
+    <p>É o resultado das rodadas, do passo 1 ao 10. A coluna <b>Stubs necessários</b> mostra o que ainda não existia quando a classe entrou e por isso precisou de um substituto: por exemplo, MenuItem entra no passo 3 e precisa de um stub de Restaurant, que só entra no passo 5. São 6 stubs no total, e o Order (passo 6) é o que mais precisa: 4, porque se liga a quase todas.</p>
+  </div>
+  <p>Os testes de integração fazem esses stubs com <code>mock(Classe.class)</code> e <code>when(...).thenReturn(...)</code>, um teste para cada passo que precisa de stub.</p>
+</section>
+
+<section id="s11">
+  <div class="num">Seção 11 (item 8)</div>
+  <h2>Testes funcionais com Selenium</h2>
+  <p><b>Por que está aqui:</b> o item 8 pede pelo menos 5 testes funcionais numa região complexa sem teste unitário. Usei o Selenium IDE, de forma visual.</p>
+  <div class="amarelo">
+    <h3>Como ler a lista de comandos</h3>
+    <p>Cada linha é <code>comando | alvo | valor</code>. <b>open</b> abre a página; <b>type</b> digita o valor no campo indicado (<code>name=username</code> é o campo de e-mail); <b>click</b> clica; <b>assertText</b> confere o texto de um elemento e faz o teste falhar se for diferente.</p>
+    <ul>
+      <li><b>Login correto:</b> confere "Alex Morgan", que só aparece no painel depois do login, e depois "Logged out successfully." após o logout.</li>
+      <li><b>Login incorreto:</b> senha <code>pass124</code>; confere "Invalid email or password."</li>
+      <li><b>Login adm:</b> confere "Admin Dashboard" e, depois do clique no card, "Manage Users".</li>
+      <li><b>Registro</b> e <b>Registro Entregador:</b> cadastram um usuário novo e conferem "Registration successful! Please log in."</li>
+    </ul>
+  </div>
+</section>
+
+<section id="s12">
+  <div class="num">Seção 12</div>
+  <h2>Telas do sistema</h2>
+  <p><b>Por que está aqui:</b> completa a apresentação da seção 1, mostrando as telas dos quatro perfis com o sistema rodando.</p>
+  <p class="fala">"Para fechar: medi a complexidade, escolhi os 2 métodos mais complexos, planejei 25 casos pelo valor limite, cobri 100% deles, defini a integração com 6 stubs e testei login e cadastro pela tela."</p>
+</section>
+
+</main>
+</body>
+</html>
