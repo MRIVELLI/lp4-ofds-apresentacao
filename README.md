@@ -21,3 +21,7 @@ Se aparecer "Unable to establish loopback connection":
 npm install -g selenium-side-runner
 selenium-side-runner testes-selenium.side
 ```
+OU
+```powershell
+selenium-ide
+```
