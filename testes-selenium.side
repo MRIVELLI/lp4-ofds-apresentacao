@@ -1,0 +1,881 @@
+{
+  "id": "97b47564-d790-4af0-ad44-950694f3bc25",
+  "version": "3.0",
+  "name": "Test OFDS",
+  "url": "http://localhost:8080",
+  "urls": [
+    "http://localhost:8080"
+  ],
+  "plugins": [],
+  "suites": [
+    {
+      "id": "7aef1387-90b5-4394-9ed3-28ba7cce72ef",
+      "name": "Testes OFDS",
+      "parallel": false,
+      "persistSession": false,
+      "tests": [
+        "71679168-d919-4a61-8dcd-9162d439d53e",
+        "173f74b1-91bf-404b-9bc3-6fa4ee53bba4",
+        "21bab9bc-59a9-420f-bef7-ed9cbb0ae8be",
+        "69868297-8016-40ac-90de-2f46de81215b",
+        "0a987aad-7603-4773-a033-fc27b1be6981"
+      ],
+      "timeout": 30000
+    }
+  ],
+  "tests": [
+    {
+      "id": "71679168-d919-4a61-8dcd-9162d439d53e",
+      "name": "Login correto",
+      "commands": [
+        {
+          "command": "open",
+          "target": "http://localhost:8080/login",
+          "value": "",
+          "id": "7fe81390-980a-4447-9b15-33e05de1bbe4"
+        },
+        {
+          "command": "click",
+          "target": "name=username",
+          "value": "",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "",
+          "id": "d88d1e07-c5c2-4da3-a69d-86ad874664ef",
+          "targets": [
+            [
+              "name=username",
+              "name"
+            ],
+            [
+              "css=[name=\"username\"]",
+              "css:finder"
+            ],
+            [
+              "xpath=(//input[@name='username'])[1]",
+              "xpath:attributes"
+            ]
+          ]
+        },
+        {
+          "command": "type",
+          "target": "name=username",
+          "value": "alex@ofds.com",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "",
+          "id": "46019ad2-0a44-429f-881b-8a43acc603d3",
+          "targets": [
+            [
+              "name=username",
+              "name"
+            ],
+            [
+              "css=[name=\"username\"]",
+              "css:finder"
+            ],
+            [
+              "xpath=(//input[@name='username'])[1]",
+              "xpath:attributes"
+            ]
+          ]
+        },
+        {
+          "command": "click",
+          "target": "name=password",
+          "value": "",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "",
+          "id": "ffb89017-85a4-4cbb-a406-a0bb540646c0",
+          "targets": [
+            [
+              "name=password",
+              "name"
+            ],
+            [
+              "css=[name=\"password\"]",
+              "css:finder"
+            ],
+            [
+              "xpath=(//input[@name='password'])[1]",
+              "xpath:attributes"
+            ]
+          ]
+        },
+        {
+          "command": "type",
+          "target": "name=password",
+          "value": "pass123",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "",
+          "id": "5396ef7e-9d54-48f7-a73e-7b2e22d0dd30",
+          "targets": [
+            [
+              "name=password",
+              "name"
+            ],
+            [
+              "css=[name=\"password\"]",
+              "css:finder"
+            ],
+            [
+              "xpath=(//input[@name='password'])[1]",
+              "xpath:attributes"
+            ]
+          ]
+        },
+        {
+          "command": "sendKeys",
+          "target": "name=password",
+          "value": "${KEY_ENTER}",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "",
+          "id": "33648ec7-53bb-4f77-b699-23187141baef",
+          "targets": [
+            [
+              "name=password",
+              "name"
+            ],
+            [
+              "css=[name=\"password\"]",
+              "css:finder"
+            ],
+            [
+              "xpath=(//input[@name='password'])[1]",
+              "xpath:attributes"
+            ]
+          ]
+        },
+        {
+          "command": "assertText",
+          "target": "css=.page-title > span",
+          "value": "Alex Morgan",
+          "id": "9e5057ce-6cd4-4a2d-a6ad-23a5ba54312a"
+        },
+        {
+          "command": "waitForText",
+          "target": "css=.page-title > span",
+          "value": "Alex Morgan",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "f64b83c2-4906-4fdc-ad98-295a500034d7",
+          "targets": [
+            [
+              "css=.page-title > span",
+              "css:finder"
+            ],
+            [
+              "xpath=//span[contains(.,'Alex Morgan')]",
+              "xpath:innerText"
+            ]
+          ]
+        },
+        {
+          "command": "click",
+          "target": "css=.logout",
+          "value": "",
+          "id": "88795f46-90ed-4e4c-a4b9-4879c151bb7d"
+        },
+        {
+          "command": "assertText",
+          "target": "css=.alert",
+          "value": "Logged out successfully.",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "74cd13dd-55a4-45a9-8be3-07a98c43c972",
+          "targets": [
+            [
+              "css=.alert",
+              "css:finder"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "173f74b1-91bf-404b-9bc3-6fa4ee53bba4",
+      "name": "Login incorreto",
+      "commands": [
+        {
+          "command": "open",
+          "target": "http://localhost:8080/login",
+          "value": "",
+          "id": "5e88064f-48e6-451c-b908-1aaf3eca64f2"
+        },
+        {
+          "command": "type",
+          "target": "name=username",
+          "value": "alex@ofds.com",
+          "id": "a2f000d0-e5b8-43ae-80eb-ff40f61ef7dc"
+        },
+        {
+          "command": "type",
+          "target": "name=password",
+          "value": "pass124",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "cedc53cf-0b54-4b6f-863e-4fa92cb8ebb3",
+          "targets": [
+            [
+              "name=password",
+              "name"
+            ],
+            [
+              "css=[name=\"password\"]",
+              "css:finder"
+            ],
+            [
+              "xpath=(//input[@name='password'])[1]",
+              "xpath:attributes"
+            ]
+          ]
+        },
+        {
+          "command": "click",
+          "target": "css=.btn",
+          "value": "",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "1b066b0e-3c5c-42fe-92b5-9738968208d2",
+          "targets": [
+            [
+              "css=.btn",
+              "css:finder"
+            ],
+            [
+              "xpath=(//button[@type='submit' and text()='Sign In'])[1]",
+              "xpath:attributes"
+            ],
+            [
+              "xpath=//button[contains(.,'Sign In')]",
+              "xpath:innerText"
+            ]
+          ]
+        },
+        {
+          "command": "assertText",
+          "target": "css=.alert",
+          "value": "Invalid email or password.",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "47701b93-bca6-4f53-8f10-a604b3d7f738",
+          "targets": [
+            [
+              "css=.alert",
+              "css:finder"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "21bab9bc-59a9-420f-bef7-ed9cbb0ae8be",
+      "name": "Login adm",
+      "commands": [
+        {
+          "command": "open",
+          "target": "http://localhost:8080",
+          "value": "",
+          "id": "618cbe5f-c854-4fce-8c91-2ea1be37d744"
+        },
+        {
+          "command": "type",
+          "target": "name=username",
+          "value": "admin@ofds.com",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "1a2c4cfa-8398-400f-b739-db80d218039b",
+          "targets": [
+            [
+              "name=username",
+              "name"
+            ],
+            [
+              "css=[name=\"username\"]",
+              "css:finder"
+            ],
+            [
+              "xpath=(//input[@name='username'])[1]",
+              "xpath:attributes"
+            ]
+          ]
+        },
+        {
+          "command": "type",
+          "target": "name=password",
+          "value": "admin123",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "57f5252e-b4ad-4750-a924-d20776169e19",
+          "targets": [
+            [
+              "name=password",
+              "name"
+            ],
+            [
+              "css=[name=\"password\"]",
+              "css:finder"
+            ],
+            [
+              "xpath=(//input[@name='password'])[1]",
+              "xpath:attributes"
+            ]
+          ]
+        },
+        {
+          "command": "click",
+          "target": "css=.btn",
+          "value": "",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "78c4e161-9e62-4e5a-9703-6399ffe8d5c7",
+          "targets": [
+            [
+              "css=.btn",
+              "css:finder"
+            ],
+            [
+              "xpath=(//button[@type='submit' and text()='Sign In'])[1]",
+              "xpath:attributes"
+            ],
+            [
+              "xpath=//button[contains(.,'Sign In')]",
+              "xpath:innerText"
+            ]
+          ]
+        },
+        {
+          "command": "assertText",
+          "target": "css=.page-title",
+          "value": "Admin Dashboard",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "7e738c9c-b455-4d67-9388-746e6b985c4b",
+          "targets": [
+            [
+              "css=.page-title",
+              "css:finder"
+            ],
+            [
+              "xpath=//p[contains(.,'Admin Dashboard')]",
+              "xpath:innerText"
+            ]
+          ]
+        },
+        {
+          "command": "click",
+          "target": "css=a:nth-of-type(1) > div:nth-of-type(1)",
+          "value": "👥",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "31b0aa30-91e7-4a88-bb4a-f7f1e06fd234",
+          "targets": [
+            [
+              "css=a:nth-of-type(1) > div:nth-of-type(1)",
+              "css:finder"
+            ]
+          ]
+        },
+        {
+          "command": "assertText",
+          "target": "css=.page-title",
+          "value": "Manage Users",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "9cf67749-55e0-43aa-bb7d-f9db8ba7c8f0",
+          "targets": [
+            [
+              "css=.page-title",
+              "css:finder"
+            ],
+            [
+              "xpath=//p[contains(.,'Manage Users')]",
+              "xpath:innerText"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "69868297-8016-40ac-90de-2f46de81215b",
+      "name": "Registro",
+      "commands": [
+        {
+          "id": "4d49f78d-b276-48db-8a14-4290cfcb3680",
+          "command": "open",
+          "target": "http://localhost:8080",
+          "value": ""
+        },
+        {
+          "command": "click",
+          "target": "linkText=Register here",
+          "value": "",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "2b7027b3-7049-43d3-9c4a-4ebde6c83224",
+          "targets": [
+            [
+              "linkText=Register here",
+              "linkText"
+            ],
+            [
+              "css=a",
+              "css:finder"
+            ],
+            [
+              "xpath=(//a[contains(text(),'Register here')])[1]",
+              "xpath:link"
+            ],
+            [
+              "xpath=(//a[contains(@href, '/register')])[1]",
+              "xpath:href"
+            ],
+            [
+              "xpath=//a[contains(.,'Register here')]",
+              "xpath:innerText"
+            ]
+          ]
+        },
+        {
+          "command": "type",
+          "target": "name=name",
+          "value": "Marcos",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "d98810a2-2063-4960-811a-f57718d21912",
+          "targets": [
+            [
+              "name=name",
+              "name"
+            ],
+            [
+              "css=[name=\"name\"]",
+              "css:finder"
+            ],
+            [
+              "xpath=(//input[@name='name'])[1]",
+              "xpath:attributes"
+            ],
+            [
+              "xpath=(//form[@id='regForm']/div[2]/input)[1]",
+              "xpath:idRelative"
+            ]
+          ]
+        },
+        {
+          "command": "type",
+          "target": "name=email",
+          "value": "marcos.@gmail.com",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "5aa4f761-9c0a-4b7b-861e-7f401d6b41a9",
+          "targets": [
+            [
+              "name=email",
+              "name"
+            ],
+            [
+              "css=[name=\"email\"]",
+              "css:finder"
+            ],
+            [
+              "xpath=(//input[@name='email'])[1]",
+              "xpath:attributes"
+            ],
+            [
+              "xpath=(//form[@id='regForm']/div[3]/input)[1]",
+              "xpath:idRelative"
+            ]
+          ]
+        },
+        {
+          "command": "type",
+          "target": "name=phone",
+          "value": "9854124587",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "f72b40f3-fb07-4974-9323-5d40866d67e3",
+          "targets": [
+            [
+              "name=phone",
+              "name"
+            ],
+            [
+              "css=[name=\"phone\"]",
+              "css:finder"
+            ],
+            [
+              "xpath=(//input[@name='phone'])[1]",
+              "xpath:attributes"
+            ],
+            [
+              "xpath=(//form[@id='regForm']/div[4]/input)[1]",
+              "xpath:idRelative"
+            ]
+          ]
+        },
+        {
+          "command": "type",
+          "target": "name=password",
+          "value": "457896",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "37477ca0-9fff-4fd4-ae29-7656dc4596d4",
+          "targets": [
+            [
+              "name=password",
+              "name"
+            ],
+            [
+              "css=[name=\"password\"]",
+              "css:finder"
+            ],
+            [
+              "xpath=(//input[@name='password'])[1]",
+              "xpath:attributes"
+            ],
+            [
+              "xpath=(//form[@id='regForm']/div[5]/input)[1]",
+              "xpath:idRelative"
+            ]
+          ]
+        },
+        {
+          "command": "type",
+          "target": "name=address",
+          "value": "IFET",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "f11dc7c1-deb9-4aeb-8352-8c73090970f6",
+          "targets": [
+            [
+              "name=address",
+              "name"
+            ],
+            [
+              "css=[name=\"address\"]",
+              "css:finder"
+            ],
+            [
+              "xpath=(//input[@name='address'])[1]",
+              "xpath:attributes"
+            ],
+            [
+              "xpath=(//div[@id='addressGroup']/input)[1]",
+              "xpath:idRelative"
+            ]
+          ]
+        },
+        {
+          "command": "click",
+          "target": "css=.btn",
+          "value": "",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "51f37cb0-5af0-4a26-9f1c-a3a44a0ead4c",
+          "targets": [
+            [
+              "css=.btn",
+              "css:finder"
+            ],
+            [
+              "xpath=(//button[@type='submit' and text()='Register'])[1]",
+              "xpath:attributes"
+            ],
+            [
+              "xpath=(//form[@id='regForm']/button)[1]",
+              "xpath:idRelative"
+            ],
+            [
+              "xpath=//button[contains(.,'Register')]",
+              "xpath:innerText"
+            ]
+          ]
+        },
+        {
+          "command": "assertText",
+          "target": "css=.alert",
+          "value": "Registration successful! Please log in.",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "1fabcaa2-4ee3-4d69-84f3-b14944b6e643",
+          "targets": [
+            [
+              "css=.alert",
+              "css:finder"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0a987aad-7603-4773-a033-fc27b1be6981",
+      "name": "Registro Entregador",
+      "commands": [
+        {
+          "id": "4707bfac-f6b6-4892-a502-95f6b1d65065",
+          "command": "open",
+          "target": "http://localhost:8080",
+          "value": ""
+        },
+        {
+          "command": "click",
+          "target": "linkText=Register here",
+          "value": "",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "bfd3b5c4-a51a-41c3-aa85-824922e5addb",
+          "targets": [
+            [
+              "linkText=Register here",
+              "linkText"
+            ],
+            [
+              "css=a",
+              "css:finder"
+            ],
+            [
+              "xpath=(//a[contains(text(),'Register here')])[1]",
+              "xpath:link"
+            ],
+            [
+              "xpath=(//a[contains(@href, '/register')])[1]",
+              "xpath:href"
+            ],
+            [
+              "xpath=//a[contains(.,'Register here')]",
+              "xpath:innerText"
+            ]
+          ]
+        },
+        {
+          "command": "click",
+          "target": "css=.role-tabs > div:nth-of-type(3)",
+          "value": "",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "e531d7f2-4e2c-43f3-bb44-024c61c33a9b",
+          "targets": [
+            [
+              "css=.role-tabs > div:nth-of-type(3)",
+              "css:finder"
+            ],
+            [
+              "xpath=(//div[@onclick=\"setRole('DELIVERY_PARTNER',this)\"])[1]",
+              "xpath:attributes"
+            ],
+            [
+              "xpath=(//form[@id='regForm']/div/div/div[3])[1]",
+              "xpath:idRelative"
+            ]
+          ]
+        },
+        {
+          "command": "type",
+          "target": "name=name",
+          "value": "Marcos2",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "cfa5a210-fd86-4104-a2ce-e8e7f2f798ac",
+          "targets": [
+            [
+              "name=name",
+              "name"
+            ],
+            [
+              "css=[name=\"name\"]",
+              "css:finder"
+            ],
+            [
+              "xpath=(//input[@name='name'])[1]",
+              "xpath:attributes"
+            ],
+            [
+              "xpath=(//form[@id='regForm']/div[2]/input)[1]",
+              "xpath:idRelative"
+            ]
+          ]
+        },
+        {
+          "command": "type",
+          "target": "name=email",
+          "value": "marcos2.@gmail.com",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "0ee73aba-748d-4fb1-8c1f-1a63b0cb9644",
+          "targets": [
+            [
+              "name=email",
+              "name"
+            ],
+            [
+              "css=[name=\"email\"]",
+              "css:finder"
+            ],
+            [
+              "xpath=(//input[@name='email'])[1]",
+              "xpath:attributes"
+            ],
+            [
+              "xpath=(//form[@id='regForm']/div[3]/input)[1]",
+              "xpath:idRelative"
+            ]
+          ]
+        },
+        {
+          "command": "type",
+          "target": "name=phone",
+          "value": "124578547854",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "1443979e-86aa-409c-856f-cedb47ef6ced",
+          "targets": [
+            [
+              "name=phone",
+              "name"
+            ],
+            [
+              "css=[name=\"phone\"]",
+              "css:finder"
+            ],
+            [
+              "xpath=(//input[@name='phone'])[1]",
+              "xpath:attributes"
+            ],
+            [
+              "xpath=(//form[@id='regForm']/div[4]/input)[1]",
+              "xpath:idRelative"
+            ]
+          ]
+        },
+        {
+          "command": "type",
+          "target": "name=password",
+          "value": "marcos2",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "48efce9c-0b5e-4917-aa37-0317e47d6065",
+          "targets": [
+            [
+              "name=password",
+              "name"
+            ],
+            [
+              "css=[name=\"password\"]",
+              "css:finder"
+            ],
+            [
+              "xpath=(//input[@name='password'])[1]",
+              "xpath:attributes"
+            ],
+            [
+              "xpath=(//form[@id='regForm']/div[5]/input)[1]",
+              "xpath:idRelative"
+            ]
+          ]
+        },
+        {
+          "command": "click",
+          "target": "name=vehicleType",
+          "value": "",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "89f05701-9319-4542-b061-e16fdd55d3d8",
+          "targets": [
+            [
+              "name=vehicleType",
+              "name"
+            ],
+            [
+              "css=[name=\"vehicleType\"]",
+              "css:finder"
+            ],
+            [
+              "xpath=(//select[@name='vehicleType'])[1]",
+              "xpath:attributes"
+            ],
+            [
+              "xpath=(//div[@id='vehicleGroup']/select)[1]",
+              "xpath:idRelative"
+            ]
+          ]
+        },
+        {
+          "command": "click",
+          "target": "css=.btn",
+          "value": "",
+          "id": "50b9fd0d-3d4b-43fb-9430-598823e4d03c",
+          "fallbackTargets": [
+            [
+              "css=.btn",
+              "css:finder"
+            ],
+            [
+              "xpath=(//button[@type='submit' and text()='Register'])[1]",
+              "xpath:attributes"
+            ],
+            [
+              "xpath=(//form[@id='regForm']/button)[1]",
+              "xpath:idRelative"
+            ],
+            [
+              "xpath=//button[contains(.,'Register')]",
+              "xpath:innerText"
+            ]
+          ]
+        },
+        {
+          "command": "assertText",
+          "target": "css=.alert",
+          "value": "Registration successful! Please log in.",
+          "insertBeforeLastCommand": false,
+          "frameLocation": "root",
+          "winHandleId": "root",
+          "id": "f678627d-b24b-4db8-bde0-a1c4a88d9fd8",
+          "targets": [
+            [
+              "css=.alert",
+              "css:finder"
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "snapshot": {
+    "dependencies": {},
+    "tests": [],
+    "jest": {
+      "extraGlobals": []
+    }
+  }
+}
